@@ -1,0 +1,11 @@
+<%=flash[:notice]%>
+
+<%=form_with model: @productDetails do |f|%>
+    <div>
+        <%=f.label :productCount%>
+        <%=f.number_field :productCount%>
+    </div>
+    <div>
+        <%=f.submit%>
+    </div>
+<%end%>

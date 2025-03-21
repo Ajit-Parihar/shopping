@@ -1,0 +1,19 @@
+<%=flash[:notice]%>
+
+<h1>All Product</h1>
+
+<%@products.each do |product|%>
+
+<% if product.image.attached? %>
+  <%= image_tag product.image, alt: "Product Image" %>
+<% else %>
+  <p>No Image Available</p>
+<% end %>
+
+<%=product.product_name%>
+<br>
+<%=product.brand_name%>
+<br>
+<%=product.price%>
+
+<%end%>
