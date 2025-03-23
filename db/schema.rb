@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_21_123708) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_23_063909) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -64,7 +64,9 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_21_123708) do
     t.integer "price"
     t.integer "user_id"
     t.integer "product_category_id"
+    t.integer "seller_product_details_id"
     t.index ["product_category_id"], name: "index_products_on_product_category_id"
+    t.index ["seller_product_details_id"], name: "index_products_on_seller_product_details_id"
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 
@@ -80,10 +82,31 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_21_123708) do
 
   create_table "seller_product_details", force: :cascade do |t|
     t.integer "productCount"
-    t.integer "product_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_seller_product_details_on_product_id"
+  end
+
+  create_table "user_addresses", force: :cascade do |t|
+    t.string "country"
+    t.string "state"
+    t.string "dist"
+    t.string "block"
+    t.string "town"
+    t.integer "gali_no"
+    t.integer "house_no"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_detail_id", null: false
+    t.index ["user_detail_id"], name: "index_user_addresses_on_user_detail_id"
+  end
+
+  create_table "user_details", force: :cascade do |t|
+    t.integer "account_details"
+    t.boolean "cod"
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_user_details_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -104,8 +127,10 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_21_123708) do
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "products", "product_categories"
+  add_foreign_key "products", "seller_product_details", column: "seller_product_details_id"
   add_foreign_key "products", "users"
   add_foreign_key "seller_product_categories", "product_categories"
   add_foreign_key "seller_product_categories", "users"
-  add_foreign_key "seller_product_details", "products"
+  add_foreign_key "user_addresses", "user_details"
+  add_foreign_key "user_details", "users"
 end

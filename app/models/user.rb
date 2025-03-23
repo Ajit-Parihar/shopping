@@ -9,11 +9,10 @@ class User < ApplicationRecord
 
   has_many :seller_product_categories
   has_many :product_categories, through: :seller_product_categories
+  has_one :user_details
 
    def timeout_in
-
-      60.minutes
-
+      1.minutes
    end
 
 end

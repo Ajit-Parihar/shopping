@@ -15,6 +15,10 @@ module Shopping
     # not contain `.rb` files, or that should not be reloaded or eager loaded.
     # Common ones are `templates`, `generators`, or `middleware`, for example.
     config.autoload_lib(ignore: %w[assets tasks])
+    config.images_hash = {
+      Electronic: "https://fndsuk.files.wordpress.com/2020/06/make-a-note-on-consumer-electronics-awesome-things-learn-electronic-appliances-for-home-1024x768-1.jpg",
+      Cloth: "https://pluspng.com/img-png/shirt-png-hd-dress-shirt-png-image-dress-shirt-png-914.png"
+    }
 
     # Configuration for the application, engines, and railties goes here.
     #

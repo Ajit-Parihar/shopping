@@ -1,0 +1,44 @@
+<%= flash[:notice] %>
+
+<h1>All Product</h1>
+
+<% @products.each do |product| %>
+  <% if product.image.attached? %>
+    <%= image_tag product.image, alt: "Product Image", class: "product-image", data: { id: product.id } %>
+  <% else %>
+    <p>No Image Available</p>
+  <% end %>
+
+  <p id="extra_text_<%= product.id %>" class="extra-text" style="display: none;">
+    Yeh ek Apple hai! 🍎 (Product ID: <%= product.id %>)
+  </p>
+
+  <!-- Buttons for Buy & Add to Cart -->
+  <div id="buttons_<%= product.id %>" class="button-container" style="display: none;">
+    <%if %>
+    <a href="<%= products_path(product) %>" class="btn btn-success">Buy</a>
+    <%end%>
+    <a href="<%= products_path(product) %>" class="btn btn-primary">Add to Cart</a>
+  </div>
+
+  <%= product.product_name %><br>
+  <%= product.brand_name %><br>
+  <%= product.price %><br>
+<% end %>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    document.querySelectorAll(".product-image").forEach(function (image) {
+      image.addEventListener("click", function () {
+        let productId = this.dataset.id;
+        let textElement = document.getElementById("extra_text_" + productId);
+        let buttonContainer = document.getElementById("buttons_" + productId);
+
+        // Toggle text and buttons visibility
+        let isHidden = textElement.style.display === "none";
+        textElement.style.display = isHidden ? "block" : "none";
+        buttonContainer.style.display = isHidden ? "block" : "none";
+      });
+    });
+  });
+</script>
