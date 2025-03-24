@@ -29,7 +29,6 @@ class SellerProductDetailsController < ApplicationController
    private
    
    def params_productDetails
-      puts "4444444444444444444"
        params.require(:seller_product_detail).permit(:productCount, :product_id) 
    end
 end
