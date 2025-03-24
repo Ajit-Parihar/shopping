@@ -12,4 +12,11 @@ class ApplicationController < ActionController::Base
   def after_sign_in_path_for(resource)
     home_path 
   end
+
+  helper_method :current_product  # Make it available in views
+
+  def current_product
+    @current_product ||= Product.find_by(id: session[:product_id])
+  end
+
 end

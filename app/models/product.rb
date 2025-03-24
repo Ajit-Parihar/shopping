@@ -5,4 +5,5 @@ class Product < ApplicationRecord
   has_one_attached :image
   belongs_to :seller_product_detail, optional: true
 
+  has_many :user_placed_orders
 end

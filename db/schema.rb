@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_23_063909) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_24_103557) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -46,6 +46,15 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_23_063909) do
     t.string "password_digest"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "conform_orders", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_placed_order_id", null: false
+    t.index ["user_id"], name: "index_conform_orders_on_user_id"
+    t.index ["user_placed_order_id"], name: "index_conform_orders_on_user_placed_order_id"
   end
 
   create_table "product_categories", force: :cascade do |t|
@@ -103,10 +112,23 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_23_063909) do
   create_table "user_details", force: :cascade do |t|
     t.integer "account_details"
     t.boolean "cod"
-    t.integer "user_id", null: false
+    t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_user_details_on_user_id"
+  end
+
+  create_table "user_placed_orders", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "paimentMethod"
+    t.boolean "deliver"
+    t.boolean "cancel"
+    t.boolean "pending"
+    t.integer "product_id", null: false
+    t.integer "user_id", null: false
+    t.index ["product_id"], name: "index_user_placed_orders_on_product_id"
+    t.index ["user_id"], name: "index_user_placed_orders_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -126,6 +148,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_23_063909) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "conform_orders", "user_placed_orders"
+  add_foreign_key "conform_orders", "users"
   add_foreign_key "products", "product_categories"
   add_foreign_key "products", "seller_product_details", column: "seller_product_details_id"
   add_foreign_key "products", "users"
@@ -133,4 +157,6 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_23_063909) do
   add_foreign_key "seller_product_categories", "users"
   add_foreign_key "user_addresses", "user_details"
   add_foreign_key "user_details", "users"
+  add_foreign_key "user_placed_orders", "products"
+  add_foreign_key "user_placed_orders", "users"
 end

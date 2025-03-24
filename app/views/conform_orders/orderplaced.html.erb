@@ -1,0 +1,39 @@
+<div id="order-success" class="order-placed-animation" style="display: none;">
+  ✅ Order Placed!
+</div>
+
+<button id="place-order-btn">Place Order</button>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const button = document.getElementById("place-order-btn");
+  const animationDiv = document.getElementById("order-success");
+
+  // Ensure event listeners work correctly after a page reload
+  function setupButton() {
+    if (button) {
+      button.addEventListener("click", function () {
+        // Hide the button immediately when clicked
+        button.style.display = "none";
+
+        // Show the order placed animation
+        animationDiv.style.display = "flex";
+        animationDiv.classList.add("show-animation");
+
+        // Store state to keep button hidden after reload
+        localStorage.setItem("orderPlaced", "true");
+      });
+    }
+  }
+
+  // Check localStorage to keep button hidden after refresh
+  if (localStorage.getItem("orderPlaced") === "true") {
+    button.style.display = "none"; // Keep button hidden after reload
+  } else {
+    // Ensure the button is available for clicking
+    button.style.display = "block";
+    setupButton(); // Attach event listener
+  }
+});
+</script>
+
