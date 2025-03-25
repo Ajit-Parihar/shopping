@@ -3,10 +3,24 @@
 <h1>Add product</h1>
 
 <%=form_with model: @product do |f|%>
-  <div>
-    <%=f.label :category%>
-    <%=f.text_field :category%>
+  <div class="field">
+  <%= f.label :category %><br>
+  <%= f.radio_button :category, "Electronic" %> Electronic
+
+  <%= f.radio_button :category, "Cloth" %> Cloth
+
+    <%= f.radio_button :category, "Food" %> Food
+
+  <%= f.radio_button :category, "Decoration" %> Decoration
+
+  <%= f.radio_button :category, "Fashion" %> Fashion
+
+  <%= f.radio_button :category, "Jewelry" %> Jewelry
+
+  <%= f.radio_button :category, "Book" %> Book
+
   </div>
+
   <div>
     <%=f.label :product_name%>
     <%=f.text_field :product_name%>

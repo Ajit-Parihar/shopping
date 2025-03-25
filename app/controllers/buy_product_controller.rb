@@ -1,6 +1,12 @@
 class BuyProductController < ApplicationController
     def index
-         
+
+
+      @product_id = params[:id]
+      puts @product_id.inspect
+      session[:product_id] = @product_id 
+  
+      
          @userDetail = UserDetail.find_by(user_id: current_user.id)
        
          puts @userDetail
@@ -30,13 +36,16 @@ class BuyProductController < ApplicationController
               redirect_to  user_addresses_new_path
             end
           end
+
+    
+          
+         #  @product = Product.find(current_product.id)
+           @product = Product.find_by(id: @product_id)
+           puts @prouduct.inspect
    
-     @user_details_id = UserDetail.find_by(user_id: current_user)
+     @user_details_id = UserDetail.find_by(user_id: current_user.id)
      @user_address = UserAddress.where(user_detail_id: @user_details_id)
      puts @user_address.inspect
-     @product_id = params[:id]
-     puts @product_id.inspect
-     session[:product_id] = @product_id 
-     @product = Product.find(current_product.id)
+    
     end
 end

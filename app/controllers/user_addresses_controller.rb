@@ -15,7 +15,8 @@ class UserAddressesController < ApplicationController
      @user_address.valid?
       puts @user_address.errors.full_messages
      if @user_address.save
-         redirect_to buy_product_index_id_path(5)
+      @product = Product.find_by(id: current_product)
+         redirect_to buy_product_index_id_path(@product)
      end
   end
   private

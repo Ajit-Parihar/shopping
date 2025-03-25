@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :product_categories, through: :seller_product_categories
   has_one :user_details
   has_many :conform_orders
-
+  has_many :products, dependent: :nullify
    def timeout_in
       60.minutes
    end

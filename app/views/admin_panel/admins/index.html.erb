@@ -1,9 +1,11 @@
-<h1>Home</h1>
+<%=flash[:notice]%>
+<h1>Admin Dashboard</h1>
 
+<%=link_to "Show all users", admin_panel_users_path %>
 
 <%@sellerCategory.each do |category|%> 
    <%=category.id%>
-   <%= link_to complete_product_path(category.id) do %>
+   <%= link_to   admin_panel_all_category_products_path(category.id) do %>
       <%= image_tag asset_path(Rails.application.config.images_hash[category.category.to_sym]) %>
    <% end %>
 <%end%>

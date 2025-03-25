@@ -7,4 +7,16 @@ class UsersController < ApplicationController
                @sellerCategory.push(ProductCategory.find(category))
           end 
     end
+
+    def show 
+        if current_user.present?
+          @user = User.find(current_user.id)
+        end
+    end
+
+    def logOut
+        reset_session
+        redirect_to home_path
+    end
+
 end

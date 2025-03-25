@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get "admins/index"
+  get "admins/new"
+
+ 
   get "conform_orders/index"
   get "user_addresses/index"
   get "user_addresses/new"
@@ -10,10 +14,22 @@ Rails.application.routes.draw do
   get "up" => "rails/health#show", as: :rails_health_check
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
-
+  
     devise_for :users, controllers: {
       sessions: 'users/sessions'
     }
+
+    namespace :admin_panel do
+      resources :admins, only: [:new, :create, :index] 
+      resources :products, only: [:index, :edit, :update, :delete]
+      resources :users, only: [:index, :edit, :delete]
+       get "products/:id", to: "products#show", as: "all_category_products"
+       post "product/update/:id", to: "products#update", as: "update_product"
+       get "products/delete/:id", to: "products#delete", as: "delete_product"
+       get "user/delete/:id", to: "users#delete", as: "delete_user"
+
+    end
+    
     resources :product_categories
     resources :products
     resources :seller_product_details
@@ -26,5 +42,8 @@ Rails.application.routes.draw do
     resources :user_detail
     resources :user_addresses
     resources :conform_orders
-    get "order/placed", to: "conform_orders#orderplaced", as: "order_placed"
+    get "order/:id", to: "user_detail#new", as: "user_detail_new_id"
+    get "order/placed", to: "conform_orders#order_placed", as: "order_placed"
+    get "show/details", to: "users#show", as: "show_user_details"
+    get "user/logOut", to: "users#logOut", as: "logOut_user"
 end

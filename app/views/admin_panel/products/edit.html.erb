@@ -1,0 +1,40 @@
+<h1>Edit product</h1>
+<h2>Edit Product</h2>
+
+<%= form_with model: @product, url: admin_panel_update_product_path(@product), method: :patch do |f| %>
+  <div class="field">
+    <%= f.label :category %><br>
+
+    <%= f.radio_button :category, "Electronic", checked: @product.category == "Electronic" %> Electronic
+    <%= f.radio_button :category, "Cloth", checked: @product.category == "Cloth" %> Cloth
+    <%= f.radio_button :category, "Food", checked: @product.category == "Food" %> Food
+    <%= f.radio_button :category, "Decoration", checked: @product.category == "Decoration" %> Decoration
+    <%= f.radio_button :category, "Fashion", checked: @product.category == "Fashion" %> Fashion
+    <%= f.radio_button :category, "Jewelry", checked: @product.category == "Jewelry" %> Jewelry
+    <%= f.radio_button :category, "Book", checked: @product.category == "Book" %> Book
+  </div>
+
+  <div class="field">
+    <%= f.label :product_name %>
+    <%= f.text_field :product_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :brand_name %>
+    <%= f.text_field :brand_name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :product_type %>
+    <%= f.text_field :product_type %>
+  </div>
+
+  <div class="field">
+    <%= f.label :price %>
+    <%= f.number_field :price %>
+  </div>
+
+  <div>
+    <%= f.submit "Update Product", class: "btn btn-primary" %>
+  </div>
+<% end %>

@@ -1,0 +1,60 @@
+
+
+<!-- Order Placement Button -->
+<button id="place-order-btn">Place Order</button>
+
+<!-- Order Placed Animation -->
+<div id="order-success" class="order-placed-animation" style="display: none;">
+  ✔️<br>Order Placed!
+</div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const button = document.getElementById("place-order-btn");
+  const animationDiv = document.getElementById("order-success");
+
+  if (button) {
+    button.addEventListener("click", function () {
+      // Hide the button
+      button.style.display = "none";
+
+      // Show the order placed animation
+      animationDiv.style.display = "flex";
+      animationDiv.classList.add("show-animation");
+    });
+  }
+});
+</script>
+
+<style>
+/* Full-screen overlay to center animation */
+#order-success {
+  width: 180px;
+  height: 180px;
+  background-color: rgba(0, 128, 0, 0.8); /* Green with opacity */
+  color: white;
+  font-size: 28px;
+  font-weight: bold;
+  text-align: center;
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
+}
+
+/* Animation Effect */
+.show-animation {
+  animation: popUp 0.5s ease-in-out;
+}
+
+@keyframes popUp {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
+  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+}
+</style> 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_24_103557) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_25_085954) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -40,8 +40,8 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_24_103557) do
   end
 
   create_table "admins", force: :cascade do |t|
-    t.string "firstName"
-    t.string "lastName"
+    t.string "first_name"
+    t.string "last_name"
     t.string "email"
     t.string "password_digest"
     t.datetime "created_at", null: false

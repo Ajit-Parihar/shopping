@@ -1,0 +1,7 @@
+<%="show all users"%>
+<%@users.each do |user|%>
+   <br>
+   <%=link_to user.first_name, admin_panel_users_path%>
+   <%=link_to "delete", admin_panel_delete_user_path(user)%>
+   <%=link_to "edit", admin_panel_users_path%>
+<%end%>

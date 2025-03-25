@@ -1,3 +1,17 @@
-<h1>UserDetail#new</h1>
-<p>Find me in app/views/user_detail/new.html.erb</p>
+<h1>ConformOrders#index</h1>
+<p> with id Find me in app/views/conform_orders/index.html.erb</p>
 
+
+
+<%=link_to "Online pay",user_detail_new_id_path(1)%>
+<%if @count > 5 %>
+<br>
+<%=link_to "Cash On Delivery", conform_orders_index_path%>
+<%else%>
+<br>
+<%=link_to "Cash On Delivery",user_detail_new_id_path(2)%>
+<%end%>
+
+
+
+ 

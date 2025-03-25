@@ -10,11 +10,12 @@ class ConformOrdersController < ApplicationController
           if @placedOrderStatus.paimentMethod.to_s == "Cash on Delivery" && @placedOrderStatus.cancel == true          
                   @count+=1
           end
-    
-          if @count > 5
-             puts "cod is not available"
-          end
         end
+         
+    end
+
+    if @count > 5
+      flash[:notice] = "cod not available current Account"
     end
 
       puts @count
@@ -22,18 +23,12 @@ class ConformOrdersController < ApplicationController
         #  puts @placedOrderStatus.inspect
         # redirect_to user_detail_new_path
   end
-
-   def orderplaced
-       @userDetail = UserDetail.find_by(user_id: current_user)
+  def order_placed
+    # puts "000000"
+    # @payment_method = params[:payment_method]
+      
+    #    puts "okey all good"
+    #    puts @payment_method.inspect
    end
-   def create
-    @order = Order.new(order_params)
-    if @order.save
-      flash[:notice] = "Order placed successfully!"
-      render "order_placed_path" 
-    else
-      render :new
-    end
-  end
-  
+   
 end
