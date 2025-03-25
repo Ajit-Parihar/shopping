@@ -48,4 +48,8 @@ class BuyProductController < ApplicationController
      puts @user_address.inspect
     
     end
+
+    def addTocard
+      
+    end
 end

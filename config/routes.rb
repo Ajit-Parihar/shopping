@@ -39,11 +39,12 @@ Rails.application.routes.draw do
     get "all/complete/product/:id", to: "product_categories#all_complete_products", as: "complete_product"
     resources :buy_product
     get "buy_product/index/:id", to: "buy_product#index", as: "buy_product_index_id"
+    get "buy_product/addTocard/:id", to: "buy_product#addTocard", as: "buy_roduct_addTocard_id"
     resources :user_detail
     resources :user_addresses
     resources :conform_orders
     get "order/:id", to: "user_detail#new", as: "user_detail_new_id"
-    get "order/placed", to: "conform_orders#order_placed", as: "order_placed"
+    get "order/placed", to: "conform_orders#orderplaced", as: "conform_order_placed"
     get "show/details", to: "users#show", as: "show_user_details"
     get "user/logOut", to: "users#logOut", as: "logOut_user"
 end

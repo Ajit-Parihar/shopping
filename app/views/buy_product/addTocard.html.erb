@@ -1,0 +1,115 @@
+<% @user_address.each do |address| %>
+  <label class="address-option">
+    <input type="radio" name="selected_address" value="<%= address.id %>" class="address-radio">
+    HouseNo. <%= address.house_no %>, 
+    GaliNo. <%= address.gali_no %>, 
+    <%= address.town %>, 
+    <%= address.block %>, 
+    <%= address.dist %>, 
+    <%= address.state %>, 
+    <%= address.country %>
+  </label><br>
+<% end %>
+
+<style>
+  .address-option {
+    display: block;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .address-option:hover {
+    background-color: #f0f0f0;
+  }
+
+  .address-radio {
+    display: none; /* Hide the actual radio button */
+  }
+
+  .address-option.selected {
+    background-color: lightblue; /* Highlight selected address */
+  }
+</style>
+
+<script>
+  document.querySelectorAll(".address-option").forEach(option => {
+    option.addEventListener("click", function() {
+      document.querySelectorAll(".address-option").forEach(opt => opt.classList.remove("selected"));
+      this.classList.add("selected");
+      this.querySelector(".address-radio").checked = true;
+    });
+  });
+</script>
+
+
+<%= link_to "Add Another Address", user_addresses_new_path %>
+
+<% if @product.image.attached? %>
+  <%= image_tag @product.image, alt: "Product Image", class: "product-image", data: { id: @product.id } %>
+<% else %>
+  <p>No Image Available</p>
+<% end %>
+
+<p><strong><%= @product.product_name %></strong></p>
+<p>Brand: <%= @product.brand_name %></p>
+
+
+<div class="quantity-container">
+
+  <svg class="decrease-btn" data-id="<%= @product.id %>" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+    <path fill="currentColor" d="M3 8a.75.75 0 0 1 .75-.75h8.5a.75.75 0 0 1 0 1.5h-8.5A.75.75 0 0 1 3 8"/>
+  </svg>
+
+
+  <span id="quantity-<%= @product.id %>">1</span>
+  
+
+
+<svg class="increase-btn" data-id="<%= @product.id %>" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+    <path fill="currentColor" d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2"/>
+    </svg>
+</div>
+
+
+<p>Total Pay: ₹<span id="total-pay-<%= @product.id %>" data-price="<%= @product.price %>"><%= @product.price %></span></p>
+
+<%=link_to "conform order", conform_orders_index_path%>
+
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+  document.querySelectorAll(".increase-btn").forEach((button) => {
+    button.addEventListener("click", function () {
+      let productId = this.dataset.id;
+      let quantityElement = document.getElementById(`quantity-${productId}`);
+      let totalPriceElement = document.getElementById(`total-pay-${productId}`);
+      let pricePerUnit = parseFloat(totalPriceElement.dataset.price || totalPriceElement.innerText);
+
+      let quantity = parseInt(quantityElement.innerText);
+      quantity += 1;
+      quantityElement.innerText = quantity;
+      totalPriceElement.innerText = (quantity * pricePerUnit).toFixed(2);
+    });
+  });
+
+ document.querySelectorAll(".decrease-btn").forEach((button) => {
+    button.addEventListener("click", function () {
+      let productId = this.dataset.id;
+      let quantityElement = document.getElementById(`quantity-${productId}`);
+      let totalPriceElement = document.getElementById(`total-pay-${productId}`);
+      let pricePerUnit = parseFloat(totalPriceElement.getAttribute("data-price"));
+
+      let quantity = parseInt(quantityElement.innerText);
+      if (quantity > 1) {
+        quantity -= 1;
+        quantityElement.innerText = quantity;
+        totalPriceElement.innerText = (quantity * pricePerUnit).toFixed(2);
+      }
+    });
+  });
+});
+
+</script>

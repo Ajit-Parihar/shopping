@@ -17,7 +17,7 @@
   <div id="buttons_<%= product.id %>" class="button-container" style="display: none;">
     <%if SellerProductDetail.find(product.seller_product_details_id).productCount.to_i >= 1%>
     <a href="<%= buy_product_index_id_path(product) %>" class="btn btn-success">Buy</a>
-        <a href="<%= products_path(product) %>" class="btn btn-primary">Add to Cart</a>
+        <a href="<%= buy_roduct_addTocard_id_path(product) %>" class="btn btn-primary">Add to Cart</a>
     <%else%>
        <%=link_to "Out Of Stock", products_path(product)%>
     <%end%>

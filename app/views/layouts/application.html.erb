@@ -21,8 +21,6 @@
 
   <body>
 
-
-
        <%if current_user.present?%>
            <%if current_user.role == "Seller"%>
            <%=link_to "SELL",seller_home_path%>

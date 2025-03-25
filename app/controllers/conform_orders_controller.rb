@@ -1,4 +1,16 @@
 class ConformOrdersController < ApplicationController
+
+  
+  def orderplaced
+
+    puts "order placed"
+    # puts "000000"
+    # @payment_method = params[:payment_method]
+      
+    #    puts "okey all good"
+    #    puts @payment_method.inspect
+   end
+
   def index
       @placedOrder = ConformOrder.where(user_id: current_user.id)
       @count = 0
@@ -11,7 +23,6 @@ class ConformOrdersController < ApplicationController
                   @count+=1
           end
         end
-         
     end
 
     if @count > 5
@@ -23,12 +34,6 @@ class ConformOrdersController < ApplicationController
         #  puts @placedOrderStatus.inspect
         # redirect_to user_detail_new_path
   end
-  def order_placed
-    # puts "000000"
-    # @payment_method = params[:payment_method]
-      
-    #    puts "okey all good"
-    #    puts @payment_method.inspect
-   end
+
    
 end
