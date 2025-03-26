@@ -53,4 +53,5 @@ Rails.application.routes.draw do
     post "seller/product/update/:id", to: "product_categories#update", as: "seller_update_product"
     get "seller/product/delete/:id", to: "product_categories#destroy", as: "seller_destroy_product"
     get "final/order/placed", to: "placed_orders#orderplaced", as: "final_placed_order"
+    get "conform/order/:id", to: "conform_orders#index", as: "conform_order_index"
   end

@@ -97,7 +97,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_26_054442) do
     t.datetime "updated_at", null: false
     t.index ["product_category_id"], name: "index_seller_product_categories_on_product_category_id"
     t.index ["user_id"], name: "index_seller_product_categories_on_user_id"
-  end
+  end 
 
   create_table "seller_product_details", force: :cascade do |t|
     t.integer "productCount"

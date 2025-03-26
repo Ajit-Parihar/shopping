@@ -1,11 +1,10 @@
 class BuyProductController < ApplicationController
   before_action :authenticate_user!
     def index
-    
       @product_id = params[:id]
       puts @product_id.inspect
       session[:product_id] = @product_id 
-  
+   
          @userDetail = UserDetail.find_by(user_id: current_user.id)
        
          puts @userDetail
@@ -43,7 +42,8 @@ class BuyProductController < ApplicationController
      @user_details_id = UserDetail.find_by(user_id: current_user.id)
      @user_address = UserAddress.where(user_detail_id: @user_details_id)
      puts @user_address.inspect
-    
+     @seller_product_details = SellerProductDetail.find(current_product.seller_product_details_id)
+     @product_count = @seller_product_details.productCount    
     end
 
     def addTocart
