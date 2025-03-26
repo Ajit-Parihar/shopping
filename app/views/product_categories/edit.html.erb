@@ -1,7 +1,7 @@
-<h1>Edit product</h1>
-<h2>Edit Product</h2>
+<h1>Seller Edit product</h1>
 
-<%= form_with model: @product, url: admin_panel_update_product_path(@product), method: :post, local: true do |f| %>
+
+<%= form_with model: @product, url: seller_update_product_path(@product), method: :post, local: true  do |f| %>
   <div class="field">
     <%= f.label :category %><br>
 
@@ -33,6 +33,7 @@
     <%= f.label :price %>
     <%= f.number_field :price %>
   </div>
+
   <div>
     <%= f.submit "Update Product", class: "btn btn-primary" %>
   </div>

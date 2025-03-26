@@ -12,6 +12,10 @@ class User < ApplicationRecord
   has_one :user_details
   has_many :conform_orders
   has_many :products, dependent: :nullify
+
+  has_many :add_to_carts, dependent: :destroy
+  has_many :products, through: :add_to_carts
+
    def timeout_in
       60.minutes
    end

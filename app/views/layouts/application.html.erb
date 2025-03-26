@@ -9,17 +9,22 @@
 
     <%= yield :head %>
 
+  <meta name="turbo-visit-control" content="reload">
+
+
     <link rel="manifest" href="/manifest.json">
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-    <%= javascript_include_tag "application", "data-turbo-track": "reload" %>
+
+<%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+    <%=link_to "Home", home_path%>
 
        <%if current_user.present?%>
            <%if current_user.role == "Seller"%>
@@ -28,6 +33,10 @@
        <%end%>
 
        <%if current_user.present?%>
+     
+       <%if current_user.role === "admin"%>
+         <%=link_to "Admin", admin_panel_admins_path %>    
+      <%end%>
        <%=link_to "User",  show_user_details_path%>
        <%else%>
           <%=link_to "Sign Up",new_user_registration_path%>

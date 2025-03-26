@@ -1,9 +1,19 @@
 module AdminPanel
   class AdminsController < ApplicationController
+
+    before_action :authenticate_user!
+    before_action :authorize_admin!     
+
+  private
+    def authorize_admin!
+      unless current_user.role == "admin"
+        
+        redirect_to home_path, alert: "Access denied!" 
+      end
+      end
+
+public
     def index
-
-
-
       @product_category_ids = SellerProductCategory.all.distinct.pluck(:product_category_id)
              
           @sellerCategory = []
@@ -34,4 +44,6 @@ module AdminPanel
       params.require(:admin).permit(:first_name, :last_name, :email, :password, :password_confirmation)
     end
   end
+
+
 end

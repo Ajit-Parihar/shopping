@@ -11,8 +11,8 @@ class UserDetailController < ApplicationController
      if @userDetail.present?
        puts "all okey"
        puts "2222222222222222"
-            redirect_to conform_order_placed_path 
-        # redirect_to conform_orders_index_path
+            # redirect_to conform_order_placed_path 
+             redirect_to final_placed_order_path
       return
      end
     #  @userDetail = UserDetail.new

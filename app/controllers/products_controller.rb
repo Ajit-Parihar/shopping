@@ -45,6 +45,8 @@ class ProductsController < ApplicationController
       redirect_to new_product_path, notice: "Try again, some error occurred"
     end
   end
+
+
   
   private
 

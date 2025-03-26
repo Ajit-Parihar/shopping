@@ -1,21 +1,12 @@
 class ConformOrdersController < ApplicationController
 
   
-  def orderplaced
-
-    puts "order placed"
-    # puts "000000"
-    # @payment_method = params[:payment_method]
-      
-    #    puts "okey all good"
-    #    puts @payment_method.inspect
-   end
 
   def index
       @placedOrder = ConformOrder.where(user_id: current_user.id)
       @count = 0
       if @placedOrder.present?
-       
+
       @placedOrder.each do |order|
           @placedOrderStatus = UserPlacedOrder.find(order.user_placed_order_id)
        

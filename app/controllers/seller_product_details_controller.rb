@@ -8,11 +8,11 @@ class SellerProductDetailsController < ApplicationController
       puts params_productDetails[:productCount]
       @productDetails =  SellerProductDetail.create(productCount: params_productDetails[:productCount])
       puts @productDetails.inspect
-      puts "333333333"
+ 
       @product_id = params_productDetails[:product_id]
       puts @product_id
       if @productDetails.save
-         puts "all okey"
+   
          puts @product_id.inspect
          @product = Product.find_by(id: @product_id)
          puts @product.inspect
@@ -26,8 +26,12 @@ class SellerProductDetailsController < ApplicationController
       end
    end 
 
+   def edit
+       @productDetails = SellerProductDetail.find(params[:id])
+       puts "working all good"
+   end
+
    private
-   
    def params_productDetails
        params.require(:seller_product_detail).permit(:productCount, :product_id) 
    end

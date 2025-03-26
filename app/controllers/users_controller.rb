@@ -19,4 +19,8 @@ class UsersController < ApplicationController
         redirect_to home_path
     end
 
+    def edit
+      
+    end
+
 end

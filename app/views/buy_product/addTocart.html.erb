@@ -46,41 +46,53 @@
 
 
 <%= link_to "Add Another Address", user_addresses_new_path %>
-
-<% if @product.image.attached? %>
-  <%= image_tag @product.image, alt: "Product Image", class: "product-image", data: { id: @product.id } %>
+<%@addToCardProduct.each do |product|%>
+<% if product.image.attached? %>
+  <%= image_tag product.image, alt: "Product Image", class: "product-image", data: { id: product.id } %>
 <% else %>
   <p>No Image Available</p>
 <% end %>
 
-<p><strong><%= @product.product_name %></strong></p>
-<p>Brand: <%= @product.brand_name %></p>
+<p><strong><%= product.product_name %></strong></p>
+<p>Brand: <%= product.brand_name %></p>
 
 
 <div class="quantity-container">
 
-  <svg class="decrease-btn" data-id="<%= @product.id %>" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
+  <svg class="decrease-btn" data-id="<%= product.id %>" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
     <path fill="currentColor" d="M3 8a.75.75 0 0 1 .75-.75h8.5a.75.75 0 0 1 0 1.5h-8.5A.75.75 0 0 1 3 8"/>
   </svg>
 
 
-  <span id="quantity-<%= @product.id %>">1</span>
+  <span id="quantity-<%= product.id %>">1</span>
   
 
 
-<svg class="increase-btn" data-id="<%= @product.id %>" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+<svg class="increase-btn" data-id="<%= product.id %>" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
     <path fill="currentColor" d="M18 12.998h-5v5a1 1 0 0 1-2 0v-5H6a1 1 0 0 1 0-2h5v-5a1 1 0 0 1 2 0v5h5a1 1 0 0 1 0 2"/>
     </svg>
 </div>
 
 
-<p>Total Pay: ₹<span id="total-pay-<%= @product.id %>" data-price="<%= @product.price %>"><%= @product.price %></span></p>
+<p>Total Pay: ₹<span id="total-pay-<%= product.id %>" data-price="<%= product.price %>"><%= product.price %></span></p>
+<%end%>
 
 <%=link_to "conform order", conform_orders_index_path%>
+<p><strong>Grand Total: ₹<span id="grand-total">0.00</span></strong></p>
+
+<!-- Grand Total Price Display -->
 
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", function () {
+  function updateGrandTotal() {
+    let grandTotal = 0;
+    document.querySelectorAll("[id^='total-pay-']").forEach((totalElement) => {
+      grandTotal += parseFloat(totalElement.innerText);
+    });
+    document.getElementById("grand-total").innerText = grandTotal.toFixed(2);
+  }
+
   document.querySelectorAll(".increase-btn").forEach((button) => {
     button.addEventListener("click", function () {
       let productId = this.dataset.id;
@@ -92,15 +104,17 @@
       quantity += 1;
       quantityElement.innerText = quantity;
       totalPriceElement.innerText = (quantity * pricePerUnit).toFixed(2);
+
+      updateGrandTotal(); 
     });
   });
 
- document.querySelectorAll(".decrease-btn").forEach((button) => {
+  document.querySelectorAll(".decrease-btn").forEach((button) => {
     button.addEventListener("click", function () {
       let productId = this.dataset.id;
       let quantityElement = document.getElementById(`quantity-${productId}`);
       let totalPriceElement = document.getElementById(`total-pay-${productId}`);
-      let pricePerUnit = parseFloat(totalPriceElement.getAttribute("data-price"));
+      let pricePerUnit = parseFloat(totalPriceElement.dataset.price);
 
       let quantity = parseInt(quantityElement.innerText);
       if (quantity > 1) {
@@ -108,8 +122,11 @@
         quantityElement.innerText = quantity;
         totalPriceElement.innerText = (quantity * pricePerUnit).toFixed(2);
       }
+
+      updateGrandTotal(); 
     });
   });
-});
 
+  updateGrandTotal();
+});
 </script>

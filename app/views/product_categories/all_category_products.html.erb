@@ -1,7 +1,7 @@
 
 <%=flash[:notice]%>
 
-<h1>All Seller Product</h1>
+<h1>All Seller Products</h1>
 
 <%@products.each do |product|%>
 
@@ -16,5 +16,9 @@
 <%=product.brand_name%>
 <br>
 <%=product.price%>
+
+<%=link_to "edit",edit_product_category_path(product)%>
+<%= link_to "Delete", seller_destroy_product_path(product) %>
+
 
 <%end%>
