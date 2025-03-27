@@ -1,15 +1,25 @@
-<%=flash[:notice]%>
-<%=params[:id]%>
-<%=form_with model: @productDetails do |f|%>
-    <div>
-        <%=f.label :productCount%>
-        <%=f.number_field :productCount%>
+<br>
+<br>
+<br>
+<br>
+
+<%= flash[:notice] %>
+
+<h1 class="page-title">Enter Product Details</h1>
+
+<div class="form-container">
+  <%= form_with model: @productDetails do |f| %>
+
+    <div class="form-group">
+      <%= f.label :productCount, "Product Count" %>
+      <%= f.number_field :productCount, class: "form-input", min: 1 %>
     </div>
 
+    <%= f.hidden_field :product_id, value: params[:id] %>
 
-      <%= f.hidden_field :product_id, value: params[:id] %>
-
-    <div>
-        <%=f.submit%>
+    <div class="form-group">
+      <%= f.submit "Save Details", class: "submit-button" %>
     </div>
-<%end%>
+
+  <% end %>
+</div>

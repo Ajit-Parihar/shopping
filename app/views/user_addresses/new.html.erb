@@ -1,46 +1,51 @@
-<h1>UserAddresses#new</h1>
-<p>Find me in app/views/user_addresses/new.html.erb</p>
 
-<%= form_with model: @user_address do|f|%>
+<br>
+<br>
+<br>
+<br>
+<h1 class="page-title">Enter Your Address</h1>
 
-    <div>
-        <%=f.label :country%>
-        <%=f.text_field :country%>
+<div class="form-container">
+  <%= form_with model: @user_address do |f| %>
+
+    <div class="form-group">
+      <%= f.label :country, "Country" %>
+      <%= f.text_field :country, class: "form-input" %>
     </div>
 
-     <div>
-        <%=f.label :state%>
-        <%=f.text_field :state%>
+    <div class="form-group">
+      <%= f.label :state, "State" %>
+      <%= f.text_field :state, class: "form-input" %>
     </div>
 
-    <div>
-        <%=f.label :dist%>
-        <%=f.text_field :dist%>
+    <div class="form-group">
+      <%= f.label :dist, "District" %>
+      <%= f.text_field :dist, class: "form-input" %>
     </div>
 
-    <div>
-        <%=f.label :block%>
-        <%=f.text_field :block%>
+    <div class="form-group">
+      <%= f.label :block, "Block" %>
+      <%= f.text_field :block, class: "form-input" %>
     </div>
 
-
-   <div>
-        <%=f.label :town%>
-        <%=f.text_field :town%>
+    <div class="form-group">
+      <%= f.label :town, "Town" %>
+      <%= f.text_field :town, class: "form-input" %>
     </div>
 
-
-    <div>
-        <%=f.label :gali_no%>
-        <%=f.number_field :gali_no%>
+    <div class="form-group">
+      <%= f.label :gali_no, "Street Number" %>
+      <%= f.number_field :gali_no, class: "form-input" %>
     </div>
 
-    <div>
-        <%=f.label :house_no%>
-        <%=f.number_field :house_no%>
+    <div class="form-group">
+      <%= f.label :house_no, "House Number" %>
+      <%= f.number_field :house_no, class: "form-input" %>
     </div>
 
-    <div>
-        <%=f.submit%>
+    <div class="form-group">
+      <%= f.submit "Save Address", class: "submit-button" %>
     </div>
-<%end%>
+
+  <% end %>
+</div>

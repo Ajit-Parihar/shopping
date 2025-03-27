@@ -1,11 +1,35 @@
-<%=flash[:notice]%>
-<h1>Admin Dashboard</h1>
+<br>
+<br>
+<br>
+<br>
 
-<%=link_to "Show all users", admin_panel_users_path %>
+<%= link_to "Show All Users", admin_panel_users_path, class: "btn-show-users" %>
 
-<%@sellerCategory.each do |category|%> 
-   <%=category.id%>
-   <%= link_to   admin_panel_all_category_products_path(category.id) do %>
-      <%= image_tag asset_path(Rails.application.config.images_hash[category.category.to_sym]) %>
-   <% end %>
-<%end%>
+<div class="admin-dashboard">
+  <h1>Admin Dashboard</h1>
+
+  <div class="categories-container">
+    <% @sellerCategory.each do |category| %> 
+      <% if category.present? && category.category.present? %>
+        <div class="category-card">
+          <%= link_to admin_panel_all_category_products_path(category.id) do %>
+            <% image_key = category.category.to_sym rescue nil %>
+            <% image_path = Rails.application.config.images_hash[image_key] if image_key.present? %>
+
+            <% if image_path.present? %>
+              <%= image_tag asset_path(image_path) %>
+            <% else %>
+              <p class="no-image">No image available</p>
+            <% end %>
+
+            <p><%= category.category %></p>
+          <% end %>
+        </div>
+      <% else %>
+        <p class="no-image">Category not found</p>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+
+

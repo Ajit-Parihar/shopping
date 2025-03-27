@@ -17,7 +17,7 @@ class User < ApplicationRecord
   has_many :products, through: :add_to_carts
 
    def timeout_in
-      60.minutes
+      2.hours
    end
 
 end

@@ -1,48 +1,57 @@
-<%=flash[:notice]%>
 
-<h1>Add product</h1>
+<br>
+<br>
+<br>
+<br>
+<%= flash[:notice] %>
 
-<%=form_with model: @product do |f|%>
+<h1 class="page-title">Add Product</h1>
+
+<%= form_with model: @product, html: { class: "product-form" } do |f| %>
+  
+  <!-- Category Selection -->
+  <div class="field category-field">
+    <label>Category:</label><br>
+    <% ["Electronic", "Cloth", "Food", "Decoration", "Fashion", "Jewelry", "Book"].each do |category| %>
+      <label class="radio-label">
+        <%= f.radio_button :category, category, class: "category-radio" %> <%= category %>
+      </label>
+    <% end %>
+  </div>
+
+  <!-- Product Name -->
   <div class="field">
-  <%= f.label :category %><br>
-  <%= f.radio_button :category, "Electronic" %> Electronic
-
-  <%= f.radio_button :category, "Cloth" %> Cloth
-
-    <%= f.radio_button :category, "Food" %> Food
-
-  <%= f.radio_button :category, "Decoration" %> Decoration
-
-  <%= f.radio_button :category, "Fashion" %> Fashion
-
-  <%= f.radio_button :category, "Jewelry" %> Jewelry
-
-  <%= f.radio_button :category, "Book" %> Book
-
+    <%= f.label :product_name, "Product Name:", class: "field-label" %>
+    <%= f.text_field :product_name, class: "input-field" %>
   </div>
 
-  <div>
-    <%=f.label :product_name%>
-    <%=f.text_field :product_name%>
+  <!-- Brand Name -->
+  <div class="field">
+    <%= f.label :brand_name, "Brand Name:", class: "field-label" %>
+    <%= f.text_field :brand_name, class: "input-field" %>
   </div>
-  <div>
-    <%=f.label :brand_name%>
-    <%=f.text_field :brand_name%>
+
+  <!-- Product Type -->
+  <div class="field">
+    <%= f.label :product_type, "Product Type:", class: "field-label" %>
+    <%= f.text_field :product_type, class: "input-field" %>
   </div>
-  <div>
-    <%=f.label :product_type%>
-    <%=f.text_field :product_type%>
+
+  <!-- Price -->
+  <div class="field">
+    <%= f.label :price, "Price (₹):", class: "field-label" %>
+    <%= f.number_field :price, class: "input-field" %>
   </div>
-  <div>
-    <%=f.label :price%>
-    <%=f.number_field :price%>
+
+  <!-- Product Image -->
+  <div class="field">
+    <%= f.label :image, "Upload Image:", class: "field-label" %>
+    <%= f.file_field :image, class: "file-input" %>  
   </div>
-  <div>
-    <%= f.label :image %>
-    <%= f.file_field :image %>  
-  </div>
-  <div>
-    <%=f.submit%>
+
+  <!-- Submit Button -->
+  <div class="field">
+    <%= f.submit "Add Product", class: "btn submit-btn" %>
   </div>
   
-<%end%>
+<% end %>

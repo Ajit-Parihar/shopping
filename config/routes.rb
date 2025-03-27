@@ -45,6 +45,7 @@ Rails.application.routes.draw do
     resources :user_addresses
     resources :conform_orders
     resources :placed_orders
+    resources :user_placed_orders
     get "order/:id", to: "user_detail#new", as: "user_detail_new_id"
     # get "order/placed", to: "conform_orders#orderplaced", as: "conform_order_placed"
     get "show/details", to: "users#show", as: "show_user_details"
@@ -54,4 +55,6 @@ Rails.application.routes.draw do
     get "seller/product/delete/:id", to: "product_categories#destroy", as: "seller_destroy_product"
     get "final/order/placed", to: "placed_orders#orderplaced", as: "final_placed_order"
     get "conform/order/:id", to: "conform_orders#index", as: "conform_order_index"
+    # get "user/placed/orders", to: ""
+
   end

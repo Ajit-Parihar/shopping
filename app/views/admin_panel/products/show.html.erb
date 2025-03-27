@@ -1,28 +1,39 @@
-<%= flash[:notice] %>
+<br>
+<br>
+<br>
+<br>
+<div class="all-products-container">
+  <%= flash[:notice] %>
 
-<h1>All Products</h1>
+  <h1>All Products</h1>
 
-<% @products.each do |product| %>
-  <% if product.image.attached? %>
-    <%= image_tag product.image, alt: "Product Image", class: "product-image", data: { id: product.id } %>
-  <% else %>
-    <p>No Image Available</p>
-  <% end %>
+  <div class="product-grid">
+    <% @products.each do |product| %>
+      <div class="product-card">
+        <% if product.image.attached? %>
+          <%= image_tag product.image, alt: "Product Image", class: "product-image", data: { id: product.id } %>
+        <% else %>
+          <p>No Image Available</p>
+        <% end %>
 
-  <p id="extra_text_<%= product.id %>" class="extra-text" style="display: none;">
-    Yeh ek Apple hai! 🍎 (Product ID: <%= product.id %>)
-  </p>
+        <p id="extra_text_<%= product.id %>" class="extra-text" style="display: none;">
+           (Product ID: <%= product.id %>)
+        </p>
 
-  <!-- Buttons for Edit & Delete -->
-  <div id="buttons_<%= product.id %>" class="button-container" style="display: none;">
-    <%= link_to "Edit",  edit_admin_panel_product_path(product), class: "btn btn-warning" %>
-    <%= link_to "Delete", admin_panel_delete_product_path(product), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+        <div id="buttons_<%= product.id %>" class="button-container" style="display: none;">
+          <%= link_to "Edit", edit_admin_panel_product_path(product), class: "btn btn-warning" %>
+          <%= link_to "Delete", admin_panel_delete_product_path(product), method: :delete, data: { confirm: "Are you sure?" }, class: "btn btn-danger" %>
+        </div>
+
+        <div class="product-details">
+          <p><strong><%= product.product_name %></strong></p>
+          <p>Brand: <%= product.brand_name %></p>
+          <p>Price: ₹<%= product.price %></p>
+        </div>
+      </div>
+    <% end %>
   </div>
-
-  <%= product.product_name %><br>
-  <%= product.brand_name %><br>
-  <%= product.price %><br>
-<% end %>
+</div>
 
 <script>
   document.addEventListener("DOMContentLoaded", function () {
@@ -35,7 +46,7 @@
         // Toggle text and buttons visibility
         let isHidden = textElement.style.display === "none";
         textElement.style.display = isHidden ? "block" : "none";
-        buttonContainer.style.display = isHidden ? "block" : "none";
+        buttonContainer.style.display = isHidden ? "flex" : "none";
       });
     });
   });

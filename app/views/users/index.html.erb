@@ -1,9 +1,31 @@
-<h1>Home</h1>
 
+<br>
+<br>
+<br>
+<br>
+<h1 class="page-title">Welcome to ShopEase</h1>
 
-<%@sellerCategory.each do |category|%> 
-   <%=category.id%>
-   <%= link_to complete_product_path(category.id) do %>
-      <%= image_tag asset_path(Rails.application.config.images_hash[category.category.to_sym]) %>
-   <% end %>
-<%end%>
+<div class="product-container">
+  <% @sellerCategory.each do |category| %> 
+    <% if category.present? && category.category.present? %>
+      <div class="product-card">
+        <%= link_to complete_product_path(category.id), class: "product-link" do %>
+          <% image_key = category.category.to_sym rescue nil %>
+          <% image_path = Rails.application.config.images_hash[image_key] if image_key.present? %>
+
+          <% if image_path.present? %>
+            <%= image_tag asset_path(image_path), class: "product-image" %>
+          <% else %>
+            <div class="no-image">No Image Available</div>
+          <% end %>
+
+          <div class="product-info">
+            <h2 class="product-title">Category: <%= category.category %></h2>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <p class="no-category">Category not found</p>
+    <% end %>
+  <% end %>
+</div>

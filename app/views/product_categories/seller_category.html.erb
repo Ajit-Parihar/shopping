@@ -1,8 +1,34 @@
-<%@sellerCategory.each do |category|%> 
-   <%=category.id%>
-   <%= link_to category_product_path(category.id) do %>
-      <%= image_tag asset_path(Rails.application.config.images_hash[category.category.to_sym]) %>
-   <% end %>
-<%end%>
+<br>
+<br>
+<br>
+<br>
 
+<%= flash[:notice] %>
+
+<h1 class="page-title">Seller Product Categories</h1>
+
+<div class="category-container">
+  <% @sellerCategory.each do |category| %> 
+    <% if category.present? && category.category.present? %>
+      
+      <div class="category-card">
+        <%= link_to category_product_path(category.id), class: "category-link" do %>
+          <% image_key = category.category.to_sym rescue nil %>
+          <% image_path = Rails.application.config.images_hash[image_key] if image_key.present? %>
+
+          <% if image_path.present? %>
+            <%= image_tag asset_path(image_path), class: "category-image", alt: category.category %>
+          <% else %>
+            <p class="no-image">No image available</p>
+          <% end %>
+          
+          <p class="category-name"><%= category.category %></p>
+        <% end %>
+      </div>
+    
+    <% else %>
+      <p class="error-message">Category not found</p>
+    <% end %>
+  <% end %>
+</div>
 

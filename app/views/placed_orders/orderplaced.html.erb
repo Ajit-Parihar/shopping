@@ -1,10 +1,20 @@
 
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <!-- Order Placement Button -->
-<button id="place-order-btn">Place Order</button>
+<button id="place-order-btn" class="order-btn">Place Order</button>
 
 <!-- Order Placed Animation -->
 <div id="order-success" class="order-placed-animation" style="display: none;">
-  ✔️<br>Order Placed!
+  <span class="checkmark">✔️</span><br>Order Placed!
+  <br>
+  <%= link_to "Continue Shopping", user_placed_orders_path, class: "continue-btn" %>
 </div>
 
 <script>
@@ -14,10 +24,10 @@ document.addEventListener("DOMContentLoaded", function () {
 
   if (button) {
     button.addEventListener("click", function () {
-      // Hide the button
+      // Hide the order button
       button.style.display = "none";
 
-      // Show the order placed animation
+      // Show the order success animation
       animationDiv.style.display = "flex";
       animationDiv.classList.add("show-animation");
     });
@@ -26,34 +36,97 @@ document.addEventListener("DOMContentLoaded", function () {
 </script>
 
 <style>
-/* Full-screen overlay to center animation */
-#order-success {
-  width: 180px;
-  height: 180px;
-  background-color: rgba(0, 128, 0, 0.8); /* Green with opacity */
+/* Order Button */
+.order-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  background: #28a745;
   color: white;
-  font-size: 28px;
+  font-size: 18px;
+  font-weight: bold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.order-btn:hover {
+  background: #218838;
+  transform: scale(1.05);
+}
+
+/* Order Success Popup */
+#order-success {
+  width: 220px;
+  height: 220px;
+  background-color: rgba(40, 167, 69, 0.9);
+  color: white;
+  font-size: 22px;
   font-weight: bold;
   text-align: center;
+  padding: 25px;
   line-height: 1.5;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 50%;
+  border-radius: 15px;
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  box-shadow: 0px 0px 30px rgba(0, 0, 0, 0.3);
+  box-shadow: 0px 0px 40px rgba(0, 255, 0, 0.5);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
 }
 
-/* Animation Effect */
+/* Checkmark */
+.checkmark {
+  font-size: 50px;
+  font-weight: bold;
+  animation: bounce 0.8s ease-in-out;
+}
+
+/* Popup Animation */
 .show-animation {
-  animation: popUp 0.5s ease-in-out;
+  animation: popUp 0.6s ease-in-out, fadeGlow 1.5s infinite alternate;
 }
 
 @keyframes popUp {
-  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 0; }
-  100% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  0% { transform: translate(-50%, -50%) scale(0.3); opacity: 0; }
+  70% { transform: translate(-50%, -50%) scale(1.1); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(1); }
 }
-</style> 
+
+@keyframes fadeGlow {
+  0% { box-shadow: 0px 0px 20px rgba(0, 255, 0, 0.4); }
+  100% { box-shadow: 0px 0px 30px rgba(0, 255, 0, 0.8); }
+}
+
+@keyframes bounce {
+  0% { transform: scale(0.5); }
+  50% { transform: scale(1.2); }
+  100% { transform: scale(1); }
+}
+
+/* Continue Shopping Button */
+.continue-btn {
+  margin-top: 15px;
+  padding: 10px 18px;
+  background-color: white;
+  color: #28a745;
+  font-size: 16px;
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.continue-btn:hover {
+  background-color: #e0e0e0;
+}
+</style>
+
+
+

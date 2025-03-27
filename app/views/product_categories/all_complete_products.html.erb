@@ -1,34 +1,46 @@
+<br>
+<br>
+<br>
+<br>
 <%= flash[:notice] %>
 
-<h1>All Product</h1>
+<h1>All Products</h1>
 
-<% @products.each do |product| %>
-  <% if product.image.attached? %>
-    <%= image_tag product.image, alt: "Product Image", class: "product-image", data: { id: product.id } %>
-  <% else %>
-    <p>No Image Available</p>
+<div class="product-container">
+  <% @products.each do |product| %>
+    <div class="product-card">
+      <% if product.image.attached? %>
+        <%= image_tag product.image, alt: "Product Image", class: "product-image", data: { id: product.id } %>
+      <% else %>
+        <div class="no-image">No Image Available</div>
+      <% end %>
+
+      <div class="product-info">
+        <h3 class="product-name"><%= product.product_name %></h3>
+        <p class="brand-name"><%= product.brand_name %></p>
+        <p class="price">₹<%= product.price %></p>
+
+        <p id="extra_text_<%= product.id %>" class="extra-text">
+          Yeh ek Apple hai! 🍎 (Product ID: <%= product.id %>)
+        </p>
+
+        <div id="buttons_<%= product.id %>" class="button-container">
+          <% if SellerProductDetail.find(product.seller_product_details_id).productCount.to_i >= 1 %>
+            <a href="<%= buy_product_index_id_path(product) %>" class="btn btn-success">Buy</a>
+            <a href="<%= buy_product_addTocart_id_path(product) %>" class="btn btn-primary">Add to Cart</a>
+          <% else %>
+            <span class="btn btn-out-of-stock">Out of Stock</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
   <% end %>
-
-  <p id="extra_text_<%= product.id %>" class="extra-text" style="display: none;">
-    Yeh ek Apple hai! 🍎 (Product ID: <%= product.id %>)
-  </p>
-
-  <!-- Buttons for Buy & Add to Cart -->
-  <div id="buttons_<%= product.id %>" class="button-container" style="display: none;">
-    <%if SellerProductDetail.find(product.seller_product_details_id).productCount.to_i >= 1%>
-    <a href="<%= buy_product_index_id_path(product) %>" class="btn btn-success">Buy</a>
-        <a href="<%= buy_product_addTocart_id_path(product) %>" class="btn btn-primary">Add to Cart</a>
-    <%else%>
-       <%=link_to "Out Of Stock", products_path(product)%>
-    <%end%>
-  </div>
-
-  <%= product.product_name %><br>
-  <%= product.brand_name %><br>
-  <%= product.price %><br>
+</div>
 
 
-<% end %>
+
+
+
 
 
 <script>

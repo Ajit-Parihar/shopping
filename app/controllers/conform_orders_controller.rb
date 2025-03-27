@@ -3,6 +3,12 @@ class ConformOrdersController < ApplicationController
   
 
   def index
+    @quantity = params[:quantity].to_i  
+    @quantity = @quantity + 1 
+
+
+     @sellerProductDetail = current_product.seller_product_details_id
+     
       @placedOrder = ConformOrder.where(user_id: current_user.id)
       @count = 0
       if @placedOrder.present?
@@ -19,11 +25,6 @@ class ConformOrdersController < ApplicationController
     if @count > 5
       flash[:notice] = "cod not available current Account"
     end
-
-      puts @count
-        #  @placedOrderStatus = UserPlacedOrder.find(@placedOrder.user_placed_order_id)
-        #  puts @placedOrderStatus.inspect
-        # redirect_to user_detail_new_path
   end
 
    

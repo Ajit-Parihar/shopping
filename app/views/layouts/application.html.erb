@@ -16,36 +16,54 @@
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
-
-<%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
+    <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
-
   <body>
-    <%=link_to "Home", home_path%>
+  <header>
+    <nav class="navbar">
+      <div class="logo">
+        <%= link_to "ShopEase", home_path, class: "nav-logo" %>
+        </div>
+        <ul class="nav-links">
+        <li><%= link_to "Home", home_path, class: "nav-item" %></li>
 
-       <%if current_user.present?%>
-           <%if current_user.role == "Seller"%>
-           <%=link_to "SELL",seller_home_path%>
-           <%end%>
-       <%end%>
+        <% if current_user.present? %>
+          <li><%= link_to "User", show_user_details_path, class: "nav-item" %></li>
 
-       <%if current_user.present?%>
-     
-       <%if current_user.role === "admin"%>
-         <%=link_to "Admin", admin_panel_admins_path %>    
-      <%end%>
-       <%=link_to "User",  show_user_details_path%>
-       <%else%>
-          <%=link_to "Sign Up",new_user_registration_path%>
-          <%=link_to "Log In",new_user_session_path%>
-       <%end%>
+          <% if current_user.role == "Seller" %>
+            <li><%= link_to "SELL", seller_home_path, class: "nav-item seller-btn" %></li>
+          <% end %>
 
-       <p class="notice"><%= notice %></p>
-       <p class="alert"><%= alert %></p>
+          <% if current_user.role == "admin" %>
+            <li><%= link_to "Admin", admin_panel_admins_path, class: "nav-item admin-btn" %></li>
+            
+          <% end %>
 
+          <li><%= link_to "Order", user_placed_orders_path, class: "nav-item" %></li>
+
+         <% else %>
+          <li><%= link_to "Sign Up", new_user_registration_path, class: "nav-item" %></li>
+          <li><%= link_to "Log In", new_user_session_path, class: "nav-item login-btn" %></li>
+        <% end %>
+
+      </ul>
+    </nav>
+  </header>
+
+  <div class="flash-messages">
+    <% if notice %>
+      <p class="notice"><%= notice %></p>
+    <% end %>
+    <% if alert %>
+      <p class="alert"><%= alert %></p>
+    <% end %>
+  </div>
+
+  <main class="container">
     <%= yield %>
+  </main>
   </body>
 </html>

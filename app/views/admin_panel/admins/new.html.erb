@@ -1,33 +1,41 @@
-<h2>New Admin</h2>
+<br>
+<br>
+<br>
+<br>
 
-<%= form_with model: @admin, url: admin_panel_admins_path, method: :post do |f| %>
+<div class="admin-form-container">
+  <h2>New Admin</h2>
 
-  <div>
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name %>
-  </div>
+  <%= form_with model: @admin, url: admin_panel_admins_path, method: :post do |f| %>
 
-  <div>
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name %>
-  </div>
+    <div>
+      <%= f.label :first_name %>
+      <%= f.text_field :first_name %>
+    </div>
 
-  <div>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </div>
+    <div>
+      <%= f.label :last_name %>
+      <%= f.text_field :last_name %>
+    </div>
 
-  <div>
-    <%= f.label :password %>
-    <%= f.password_field :password %>
-  </div>
+    <div>
+      <%= f.label :email %>
+      <%= f.email_field :email %>
+    </div>
 
-  <div>
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation %>
-  </div>
+    <div>
+      <%= f.label :password %>
+      <%= f.password_field :password %>
+    </div>
 
-  <div>
-    <%= f.submit "Create Admin" %>
-  </div>
-<% end %>
+    <div>
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation %>
+    </div>
+
+    <div>
+      <%= f.submit "Create Admin" %>
+    </div>
+
+  <% end %>
+</div>

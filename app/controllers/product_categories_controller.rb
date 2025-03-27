@@ -13,9 +13,7 @@ class ProductCategoriesController < ApplicationController
     #   puts @product.inspect
 
         @products = Product.where(product_category_id: params[:id], user_id: current_user.id)
-                           .page(params[:page]) 
-                           .per(1) 
-      
+                 
   end
 
   def all_complete_products

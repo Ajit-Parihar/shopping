@@ -1,5 +1,12 @@
-<h1>seller home</h1>
-
-<%=link_to "Add Product", new_product_path%>
 <br>
-<%=link_to "show Your product",  product_categories_seller_category_path%>
+<br>
+<br>
+<br>
+<br>
+<br>
+<h1 class="seller-title">Seller Dashboard</h1>
+
+<div class="seller-container">
+  <%= link_to "➕ Add Product", new_product_path, class: "btn seller-btn add-product" %>
+  <%= link_to "📦 Show Your Products", product_categories_seller_category_path, class: "btn seller-btn show-products" %>
+</div>

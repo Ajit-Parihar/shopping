@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2025_03_26_054442) do
+ActiveRecord::Schema[7.2].define(version: 2025_03_27_060531) do
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -97,7 +97,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_26_054442) do
     t.datetime "updated_at", null: false
     t.index ["product_category_id"], name: "index_seller_product_categories_on_product_category_id"
     t.index ["user_id"], name: "index_seller_product_categories_on_user_id"
-  end 
+  end
 
   create_table "seller_product_details", force: :cascade do |t|
     t.integer "productCount"
@@ -137,6 +137,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_26_054442) do
     t.boolean "pending"
     t.integer "product_id", null: false
     t.integer "user_id", null: false
+    t.datetime "start_time"
     t.index ["product_id"], name: "index_user_placed_orders_on_product_id"
     t.index ["user_id"], name: "index_user_placed_orders_on_user_id"
   end
@@ -163,7 +164,7 @@ ActiveRecord::Schema[7.2].define(version: 2025_03_26_054442) do
   add_foreign_key "conform_orders", "user_placed_orders"
   add_foreign_key "conform_orders", "users"
   add_foreign_key "products", "product_categories"
-  add_foreign_key "products", "seller_product_details", column: "seller_product_details_id"
+  add_foreign_key "products", "seller_product_details", column: "seller_product_details_id", on_delete: :cascade
   add_foreign_key "products", "users"
   add_foreign_key "seller_product_categories", "product_categories"
   add_foreign_key "seller_product_categories", "users"

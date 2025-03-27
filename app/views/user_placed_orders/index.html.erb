@@ -1,0 +1,44 @@
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>    
+
+<h1>Placed Order List</h1>
+<div class="order-list-container">
+  <% @userPlacedOrders.each do |placed| %>
+    <% product = Product.find(placed.product_id) %>
+    <div class="order-card">
+      <% if product.image.attached? %>
+        <%= image_tag product.image, alt: "Product Image", class: "product-image" %>
+      <% else %>
+        <p class="no-image">No Image Available</p>
+      <% end %>
+
+      <div class="order-details">
+        <h2><%= product.product_name %></h2>
+        <p><strong>Brand:</strong> <%= product.brand_name %></p>
+        <p><strong>Delivery Status:</strong> 
+          <span class="<%= placed.delivered? ? 'delivered' : 'pending' %>">
+            <%= placed.delivered? ? "Delivered ✅" : "Not Delivered ❌" %>
+          </span>
+        </p>
+        <p><strong>Pending:</strong> <%= placed.delivered? ? "No" : "Yes" %></p>
+
+        <% if !placed.delivered? %>
+          <button class="cancel-button" data-id="<%= placed.id %>">Cancel Order</button>
+        <% end %>
+
+        <% unless placed.cancel %>
+          <%# <%= button_to "Cancel Order", order_placed_index_path(placed), method: :patch, class: "cancel-button", data: { confirm: "Are you sure you want to cancel this order?" }  %>
+        <% else %>
+          <p class="canceled">Order Canceled</p>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
